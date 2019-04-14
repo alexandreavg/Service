@@ -14,8 +14,4 @@
 		</resource-bundle>
 	</application>
 
-	<!-- Definição do PhaseListener da Autenticação -->
-	<!-- <lifecycle> -->
-	<!-- <phase-listener>br.pro.delfino.drogaria.util.AutenticacaoListener</phase-listener> -->
-	<!-- </lifecycle> -->
 </faces-config>
