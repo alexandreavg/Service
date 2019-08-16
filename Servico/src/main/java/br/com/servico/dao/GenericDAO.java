@@ -20,7 +20,7 @@ public class GenericDAO<Entidade> {
 				.getActualTypeArguments()[0];
 	}
 
-	public void salvar(Entidade entidade) {
+	public Entidade salvar(Entidade entidade) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
 
@@ -28,6 +28,7 @@ public class GenericDAO<Entidade> {
 			transacao = sessao.beginTransaction();
 			sessao.save(entidade);
 			transacao.commit();
+			return entidade;
 		} catch (RuntimeException erro) {
 			if (transacao != null) {
 				transacao.rollback();
