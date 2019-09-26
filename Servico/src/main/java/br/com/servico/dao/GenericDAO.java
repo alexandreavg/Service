@@ -52,7 +52,7 @@ public class GenericDAO<Entidade> {
 			sessao.close();
 		}
 	}
-	
+		
 	@SuppressWarnings("unchecked")
 	public List<Entidade> listar(String campoOrdenacao) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
