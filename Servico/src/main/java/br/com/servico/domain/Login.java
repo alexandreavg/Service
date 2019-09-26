@@ -1,10 +1,7 @@
 package br.com.servico.domain;
 
-import javax.persistence.Entity;
 
-@SuppressWarnings("serial")
-@Entity
-public class Login extends GenericDomain{
+public class Login{
 	
 	private String email;
 	private String senha;

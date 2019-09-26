@@ -5,12 +5,13 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
+import br.com.servico.domain.Login;
 import br.com.servico.domain.Usuario;
 import br.com.servico.util.HibernateUtil;
 
 public class UsuarioDAO extends GenericDAO<Usuario>{
 	
-	public Usuario LogarUsuario(String email, String senha) {
+	public Usuario LogarUsuario(Login login) {
 		Usuario usuario = new Usuario();
 		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
@@ -19,8 +20,8 @@ public class UsuarioDAO extends GenericDAO<Usuario>{
 			
 			Criteria consulta = sessao.createCriteria(Usuario.class);
 			
-			consulta.add(Restrictions.eq("email", email));
-			consulta.add(Restrictions.eq("senha", senha));
+			consulta.add(Restrictions.eq("email", login.getEmail()));
+			consulta.add(Restrictions.eq("senha", login.getSenha()));
 			
 			usuario = (Usuario) consulta.uniqueResult();
 			

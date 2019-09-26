@@ -98,6 +98,10 @@ public class UsuarioService {
 		Gson gson = new Gson();
 		Login permissao = gson.fromJson(json, Login.class);
 		
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		Usuario result = usuarioDAO.LogarUsuario(permissao);
+		
+		/*
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		usuarios = (List<Usuario>) usuarioDAO.listar();
@@ -112,7 +116,7 @@ public class UsuarioService {
 		  
 		if (result == null) {
 			return "Usuario null";
-		}
+		}*/
 		
 		
 		return jsonRetorno = gson.toJson(result);
