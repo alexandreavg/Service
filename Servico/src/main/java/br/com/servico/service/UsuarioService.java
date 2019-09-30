@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -82,8 +83,9 @@ public class UsuarioService {
 		return jsonRetorno = gson.toJson(result);
 	}
 	
-	
-	@GET
+
+	@SuppressWarnings("unused")	
+	@POST
 	@Path("/logar/")
 	public String logarUsuario(String json) {
 		String jsonRetorno = "";
@@ -92,25 +94,7 @@ public class UsuarioService {
 		
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		Usuario result = usuarioDAO.LogarUsuario(permissao);
-		
-		/*
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		usuarios = (List<Usuario>) usuarioDAO.listar();
-		Usuario result = null;
-		  
-		for (Usuario usuario : usuarios) {
-		   if (usuario.getEmail().equals(permissao.getEmail()) && usuario.getSenha().equals(permissao.getSenha())) {
-			   result = usuario;
-			   break;
-		   }
-		}
-		  
-		if (result == null) {
-			return "Usuario null";
-		}*/
-		
-		
+				
 		return jsonRetorno = gson.toJson(result);
 	}
 	
