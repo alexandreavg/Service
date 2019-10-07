@@ -14,7 +14,7 @@ public class GrupoDAO extends GenericDAO<Grupo> {
 	
 	/**
 	 * @author Alexandre V. Garcia
-	 * @param nomeModerador
+	 * @param JSON nomeModerador
 	 * @return
 	 * 
 	 * Metodo para retornar todos os grupos por nome do Moderador.
@@ -26,10 +26,38 @@ public class GrupoDAO extends GenericDAO<Grupo> {
 		try {
 			Criteria consulta = sessao.createCriteria(Grupo.class);
 			
-			consulta.createAlias("usuario", "u");
+			consulta.createAlias("moderador", "u");
 			
 			consulta.add(Restrictions.or(	Restrictions.ilike("u.nome", 		nomeModerador, MatchMode.ANYWHERE),
-											Restrictions.ilike("u.sobreNome", nomeModerador, MatchMode.ANYWHERE)));
+											Restrictions.ilike("u.sobreNome",	nomeModerador, MatchMode.ANYWHERE)));
+			
+			List<Grupo> resultado = consulta.list();
+			
+			return resultado;
+		} catch (RuntimeException erro) {
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+		
+	}
+	
+	/**
+	 * @author Alexandre V. Garcia
+	 * @param JSON nomeMateria
+	 * @return
+	 * 
+	 * Metodo para retornar todos os grupos por nome da materia.
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Grupo> listarGrupoPorMateria(String nomeMateria){
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		
+		try {
+			Criteria consulta = sessao.createCriteria(Grupo.class);
+			
+			consulta.add(Restrictions.or(	Restrictions.ilike("nomeMateria", 	nomeMateria, MatchMode.ANYWHERE),
+											Restrictions.ilike("nomeMateria",	nomeMateria, MatchMode.ANYWHERE)));
 			
 			List<Grupo> resultado = consulta.list();
 			
