@@ -36,6 +36,7 @@
 		<mapping class="br.com.servico.domain.Usuario" />
 		<mapping class="br.com.servico.domain.Grupo" />
 		<mapping class="br.com.servico.domain.IntegranteGrupo" />
+		<mapping class="br.com.servico.domain.Mensagem"/>
 		
 	</session-factory>
 
