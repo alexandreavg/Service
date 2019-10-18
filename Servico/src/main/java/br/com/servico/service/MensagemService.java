@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 
 import com.google.gson.Gson;
@@ -47,10 +48,20 @@ public class MensagemService {
 		return gson.toJson(mensagens);
 	}
 	
+	@POST
+	@Path("/salvarMensagem")
+	public String enviarMensagem(String json) {
+		Gson gson = new Gson();
+		MensagemDAO dao = new MensagemDAO();
+		Mensagem mensagem = gson.fromJson(json, Mensagem.class);	
+		dao.salvar(mensagem);
+		return gson.toJson(mensagem);
+	}
+	
 	@GET
 	@Path("/Allonsy")
 	public String Fantastic() {
 		return "Geronimo";
 	}
 
-}
+}	

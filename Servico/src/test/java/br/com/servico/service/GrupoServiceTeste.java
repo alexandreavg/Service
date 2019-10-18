@@ -1,10 +1,15 @@
 package br.com.servico.service;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.junit.Test;
 
 import com.google.gson.Gson;
 
+import br.com.servico.dao.GrupoDAO;
 import br.com.servico.domain.Grupo;
+import br.com.servico.domain.Mensagem;
 import br.com.servico.domain.Usuario;
 
 public class GrupoServiceTeste {
@@ -37,7 +42,7 @@ public class GrupoServiceTeste {
 		grupoQueVeioDoJson = gson.fromJson(mensagem, Grupo.class);
 		
 		System.out.println(grupoQueVeioDoJson.getNomeGrupo());
-		
+				
 	}
 	
 }

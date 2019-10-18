@@ -5,35 +5,31 @@ import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity
 public class Mensagem extends GenericDomain {
-	
+
 	@Column(length = 60, nullable = false)
 	private Usuario usuario;
-	
-	@OneToOne
-	@JoinColumn(nullable = false)
-	private Grupo grupo;
-	
+
+	@ManyToOne
+	@JoinColumn()
+	private Grupo grupo = null;
+
 	@Column(length = 60, nullable = false)
 	private String mensagem;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar postagem;
-	
+
 	@Column(nullable = false)
 	private Integer contadorSpam = 0;
-	
-	public Mensagem(Usuario usuario, String mensagem, Calendar postagem) {
-		this.usuario = usuario;
-		this.mensagem = mensagem;
-		this.postagem = postagem;
-	}
 
 	public Mensagem() {
 	}
@@ -77,5 +73,5 @@ public class Mensagem extends GenericDomain {
 	public void setGrupo(Grupo grupo) {
 		this.grupo = grupo;
 	}
-	
+
 }

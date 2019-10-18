@@ -7,10 +7,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.WebApplicationException;
 
 import com.google.gson.Gson;
 
 import br.com.servico.dao.GrupoDAO;
+import br.com.servico.dao.UsuarioDAO;
 import br.com.servico.domain.Grupo;
 import br.com.servico.domain.Usuario;
 
@@ -102,6 +105,20 @@ public class GrupoService {
 		
 		return gson.toJson(grupos);
 	}
+	
+	@GET
+	@Path("/consultagrupo/{codigo}")
+	public String consultargrupo(@PathParam("codigo" )Long codigo) {
+		String jsonRetorno = "";
+
+		Gson gson = new Gson();
+
+		GrupoDAO grupoDAO = new GrupoDAO();
+		Grupo result = grupoDAO.buscar(codigo);
+		  
+		return jsonRetorno = gson.toJson(result);
+	}
+
 	
 	
 
