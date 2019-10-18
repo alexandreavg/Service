@@ -6,21 +6,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity
 public class Mensagem extends GenericDomain {
 
-	@Column(length = 60, nullable = false)
+	@ManyToOne
+	@JoinColumn(nullable = false, name = "usuario_codigo")
 	private Usuario usuario;
 
 	@ManyToOne
-	@JoinColumn()
-	private Grupo grupo = null;
+	@JoinColumn(nullable = false, name = "grupo_codigo")
+	private Grupo grupo;
 
 	@Column(length = 60, nullable = false)
 	private String mensagem;

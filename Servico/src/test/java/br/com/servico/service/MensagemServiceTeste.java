@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import br.com.servico.dao.GrupoDAO;
 import br.com.servico.domain.Grupo;
 import br.com.servico.domain.Mensagem;
-import br.com.servico.domain.Usuario;
 
 public class MensagemServiceTeste {
 	
