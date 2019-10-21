@@ -117,6 +117,7 @@ public class GrupoService {
 		Grupo result = grupoDAO.buscar(codigo);
 		  
 		return jsonRetorno = gson.toJson(result);
+		
 	}
 
 	

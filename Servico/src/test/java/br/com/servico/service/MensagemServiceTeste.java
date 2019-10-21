@@ -25,7 +25,7 @@ public class MensagemServiceTeste {
 		
 		mensagem.setContadorSpam(0);
 		mensagem.setGrupo(grupo);
-		mensagem.setMensagem("MEnsagem de teste 123");
+		mensagem.setMensagem("Allons-y");
 		mensagem.setPostagem(Calendar.getInstance());
 		mensagem.setUsuario(grupo.getModerador());
 		

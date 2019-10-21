@@ -118,5 +118,17 @@ public class UsuarioService {
 		
 		return jsonRetorno = gson.toJson(usuarios);
 	}
+	
+	@PUT
+	@Path("/atualizarUsuario")
+	public String atualizarUsuario(String json) {
+		String jsonRetorno = "";
+		UsuarioDAO dao = new UsuarioDAO();
+		Gson gson = new Gson();
+		Usuario usuario = gson.fromJson(json, Usuario.class);
+		dao.merge(usuario);
+		
+		return jsonRetorno = gson.toJson(usuario);
+	}
 
 }
