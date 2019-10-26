@@ -8,6 +8,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.servico.domain.Grupo;
+import br.com.servico.domain.Usuario;
 import br.com.servico.util.HibernateUtil;
 
 public class GrupoDAO extends GenericDAO<Grupo> {
@@ -69,5 +70,5 @@ public class GrupoDAO extends GenericDAO<Grupo> {
 		}
 		
 	}
-
+	
 }
