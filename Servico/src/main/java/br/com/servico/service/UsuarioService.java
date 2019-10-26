@@ -58,7 +58,7 @@ public class UsuarioService {
 
 	@GET
 	@Path("/consultaUsuario/{codigo}")
-	public String consultarUsuario(@PathParam("codigo" )int codigo) {
+	public String consultarUsuario(@PathParam("codigo" )Long codigo) {
 		String jsonRetorno = "";
 
 		Gson gson = new Gson();

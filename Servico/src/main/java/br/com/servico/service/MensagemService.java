@@ -13,6 +13,8 @@ import com.google.gson.Gson;
 import br.com.servico.dao.MensagemDAO;
 import br.com.servico.domain.Grupo;
 import br.com.servico.domain.Mensagem;
+import br.com.servico.domain.MensagemPojo;
+import br.com.servico.domain.Usuario;
 
 /*
  * Author: Robson Lopes
@@ -35,9 +37,9 @@ public class MensagemService {
 		MensagemDAO dao = new MensagemDAO();
 		List<Mensagem> mensagens = new ArrayList<Mensagem>();
 		
-		Grupo grupo = gson.fromJson(json, Grupo.class);	
+		Grupo grupo = gson.fromJson(json, Grupo.class);
 		
-		mensagens = dao.retornarMensagensDoGrupo(grupo.getNomeGrupo());
+		mensagens = dao.retornarMensagensDoGrupo(grupo);
 		
 		return gson.toJson(mensagens);
 	}
@@ -48,6 +50,27 @@ public class MensagemService {
 		Gson gson = new Gson();
 		MensagemDAO dao = new MensagemDAO();
 		Mensagem mensagem = gson.fromJson(json, Mensagem.class);	
+		dao.salvar(mensagem);
+		return gson.toJson(mensagem);
+	}
+	
+	@POST
+	@Path("/enviarMensagem")
+	public String enviarMensagemForum(String json) {
+		Gson gson = new Gson();
+		MensagemDAO dao = new MensagemDAO();
+		
+		MensagemPojo mensagemPojo = gson.fromJson(json, MensagemPojo.class);
+		Grupo grupo = gson.fromJson(new GrupoService().consultargrupo(mensagemPojo.getCodigoGrupo()), Grupo.class);
+		Usuario usuario = gson.fromJson(new UsuarioService().consultarUsuario(mensagemPojo.getUsuario()), Usuario.class);
+		
+		Mensagem mensagem = new Mensagem();
+		mensagem.setContadorSpam(0);
+		mensagem.setGrupo(grupo);
+		mensagem.setMensagem(mensagemPojo.getMensagem());
+		mensagem.setPostagem(mensagemPojo.getPostagem());
+		mensagem.setUsuario(usuario);
+		
 		dao.salvar(mensagem);
 		return gson.toJson(mensagem);
 	}
