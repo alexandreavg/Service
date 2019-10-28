@@ -3,15 +3,12 @@ package br.com.servico.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.WebApplicationException;
-
-import org.hibernate.Session;
 
 import com.google.gson.Gson;
 
