@@ -7,6 +7,7 @@ import javax.persistence.Transient;
 @SuppressWarnings("serial")
 @Entity
 public class Usuario extends GenericDomain {
+	
 
 	@Column(length = 60, nullable = false)
 	private String nome;
@@ -28,6 +29,9 @@ public class Usuario extends GenericDomain {
 
 	@Column(length = 32, nullable = false)
 	private String semestre;
+	
+	@Column(nullable = false, columnDefinition = "boolean default true")
+	private Boolean ativo;
 	
 	public Usuario() {
 		super();
@@ -100,7 +104,13 @@ public class Usuario extends GenericDomain {
 	public void setSenhaSemCriptografia(String senhaSemCriptografia) {
 		this.senhaSemCriptografia = senhaSemCriptografia;
 	}
-	
-	
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
 
 }

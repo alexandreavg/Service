@@ -3,12 +3,15 @@ package br.com.servico.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.WebApplicationException;
+
+import org.hibernate.Session;
 
 import com.google.gson.Gson;
 
@@ -80,7 +83,8 @@ public class UsuarioService {
 		   throw new WebApplicationException(404);
 		}
 		  
-		return jsonRetorno = gson.toJson(result);
+		jsonRetorno = gson.toJson(result);
+		return jsonRetorno;
 	}
 	
 
@@ -126,9 +130,37 @@ public class UsuarioService {
 		UsuarioDAO dao = new UsuarioDAO();
 		Gson gson = new Gson();
 		Usuario usuario = gson.fromJson(json, Usuario.class);
-		dao.merge(usuario);
+		dao.editarUsuario(usuario);
+		jsonRetorno = gson.toJson(usuario);
+		return jsonRetorno;
+	}
+	
+	@POST
+	@Path("/desativarUsuario")
+	public String desativarUsuario(String json) {
+		String jsonRetorno = "";
+		Gson gson = new Gson();
+		Usuario usuario = gson.fromJson(json, Usuario.class);
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		
-		return jsonRetorno = gson.toJson(usuario);
+		usuario.setAtivo(!(usuario.getAtivo()));
+		usuario = usuarioDAO.merge(usuario);
+		
+		jsonRetorno = gson.toJson(usuario);		
+		return jsonRetorno;
+
+	}
+	
+	@PUT
+	@Path("/alterarSenha")
+	public String editarUsuario(String json) {
+		String jsonRetorno = "";
+		UsuarioDAO dao = new UsuarioDAO();
+		Gson gson = new Gson();
+		Usuario usuario = gson.fromJson(json, Usuario.class);
+		dao.alterarSenha(usuario);
+		jsonRetorno = gson.toJson(usuario);
+		return jsonRetorno;
 	}
 
 }

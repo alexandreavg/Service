@@ -3,6 +3,7 @@ package br.com.servico.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -61,6 +62,32 @@ public class UsuarioDAO extends GenericDAO<Usuario>{
 		} finally {
 			sessao.close();
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void editarUsuario(Usuario usuario) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		Query query = sessao.createQuery("update Usuario set nome = :nome, sobrenome = :sobrenome, "
+				+ "curso = :curso, semestre = :semestre where codigo = :codigo");
+		query.setParameter("nome", usuario.getNome());
+		query.setParameter("sobrenome", usuario.getSobreNome());
+		query.setParameter("curso", usuario.getCurso());
+		query.setParameter("semestre", usuario.getSemestre());
+		query.setParameter("codigo", usuario.getCodigo());
+		
+		int resultQuery = query.executeUpdate();
+		System.out.println(resultQuery);
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void alterarSenha(Usuario usuario) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		Query query = sessao.createQuery("update Usuario set senha = ? where codigo = ?").setParameter(0, usuario.getSenha()).setParameter(1, usuario.getCodigo());
+		
+		int resultQuery = query.executeUpdate();
+		System.out.println(resultQuery);
+		
 	}
 	
 }
