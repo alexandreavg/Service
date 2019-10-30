@@ -44,6 +44,7 @@ public class UsuarioService {
 
 		Gson gson = new Gson();
 		Usuario usuario = gson.fromJson(json, Usuario.class);
+		//usuario.setAtivo(true);
 
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 

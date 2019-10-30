@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
@@ -67,6 +68,7 @@ public class UsuarioDAO extends GenericDAO<Usuario>{
 	@SuppressWarnings("unchecked")
 	public void editarUsuario(Usuario usuario) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		Transaction tx = sessao.beginTransaction();
 		Query query = sessao.createQuery("update Usuario set nome = :nome, sobrenome = :sobrenome, "
 				+ "curso = :curso, semestre = :semestre where codigo = :codigo");
 		query.setParameter("nome", usuario.getNome());
@@ -77,17 +79,21 @@ public class UsuarioDAO extends GenericDAO<Usuario>{
 		
 		int resultQuery = query.executeUpdate();
 		System.out.println(resultQuery);
+		tx.commit();
 		
 	}
 	
 	@SuppressWarnings("unchecked")
 	public void alterarSenha(Usuario usuario) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		Query query = sessao.createQuery("update Usuario set senha = ? where codigo = ?").setParameter(0, usuario.getSenha()).setParameter(1, usuario.getCodigo());
+		Transaction tx = sessao.beginTransaction();
+		Query query = sessao.createQuery("update Usuario set senha = :senha where codigo = :codigo");
+		query.setParameter("senha", usuario.getSenha());
+		query.setParameter("codigo", usuario.getCodigo());
 		
 		int resultQuery = query.executeUpdate();
 		System.out.println(resultQuery);
-		
+		tx.commit();
 	}
 	
 }
