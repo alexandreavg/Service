@@ -1,6 +1,8 @@
-package br.com.servico.domain;
+package br.com.servico.pojo;
 
 import java.util.Calendar;
+
+import br.com.servico.domain.GenericDomain;
 
 @SuppressWarnings("serial")
 public class MensagemPojo extends GenericDomain {

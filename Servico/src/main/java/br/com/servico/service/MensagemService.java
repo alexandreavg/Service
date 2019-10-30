@@ -11,8 +11,8 @@ import com.google.gson.Gson;
 import br.com.servico.dao.MensagemDAO;
 import br.com.servico.domain.Grupo;
 import br.com.servico.domain.Mensagem;
-import br.com.servico.domain.MensagemPojo;
 import br.com.servico.domain.Usuario;
+import br.com.servico.pojo.MensagemPojo;
 
 /*
  * Author: Robson Lopes

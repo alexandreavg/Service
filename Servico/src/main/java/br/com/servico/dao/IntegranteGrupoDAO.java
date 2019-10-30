@@ -3,6 +3,7 @@ package br.com.servico.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -40,6 +41,32 @@ public class IntegranteGrupoDAO extends GenericDAO<IntegranteGrupo> {
 			sessao.close();
 		}
 		
+	}
+	
+	public boolean consultarCadastroIntegranteGrupo(IntegranteGrupo integranteGrupo) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		
+		try {
+			
+			Session session = HibernateUtil.getFabricaDeSessoes().openSession();
+			Query query = session.createQuery("from IntegranteGrupo where grupo_codigo = :grupo AND integrante_codigo = :integrante");
+			query.setParameter("grupo", integranteGrupo.getGrupo());
+			query.setParameter("integrante", integranteGrupo.getIntegrante());
+			
+			List<IntegranteGrupo> resultado = query.list();
+			System.out.println("-------------------");
+			for(IntegranteGrupo i: resultado) {
+				System.out.println(i.getIntegrante() + " - " + i.getGrupo());
+			}
+			if(resultado.isEmpty()) {return false;}//não tem inculo usuário com codigo
+			else {return true;}
+			
+		} catch (Exception e) {
+			System.out.println("catch - Deu ruim!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			throw e;
+		}  finally {
+			sessao.close();
+		}		
 	}
 	
 }
