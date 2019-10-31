@@ -78,7 +78,6 @@ public class UsuarioDAO extends GenericDAO<Usuario>{
 		query.setParameter("codigo", usuario.getCodigo());
 		
 		int resultQuery = query.executeUpdate();
-		System.out.println(resultQuery);
 		tx.commit();
 		
 	}
@@ -94,6 +93,18 @@ public class UsuarioDAO extends GenericDAO<Usuario>{
 		int resultQuery = query.executeUpdate();
 		System.out.println(resultQuery);
 		tx.commit();
+	}
+	
+	public Login recuperarSenha(Login login) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		Query consulta = sessao.createQuery("from Usuario where email = :email");
+		consulta.setParameter("email", login.getEmail());
+		Usuario usuario = (Usuario) consulta.uniqueResult();
+		Login retorno = new Login();
+		retorno.setSenha(usuario.getSenha());
+		retorno.setEmail(usuario.getEmail());
+		return retorno;
+		
 	}
 	
 }

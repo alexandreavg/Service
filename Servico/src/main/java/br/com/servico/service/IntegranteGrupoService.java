@@ -1,5 +1,6 @@
 package br.com.servico.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.POST;
@@ -67,13 +68,39 @@ public class IntegranteGrupoService {
 		
 		List<IntegranteGrupo> integranteGrupos = integranteGrupoDAO.listarPorIntegrante(integrante);
 		
-		jsonRetorno = gson.toJson(integranteGrupos);
+		List<Grupo> grupos = new ArrayList<Grupo>();
+		GrupoService grupoService = new GrupoService();
+		for(IntegranteGrupo i : integranteGrupos) {
+			grupos.add(gson.fromJson(grupoService.consultargrupo(i.getGrupo().getCodigo()) , Grupo.class));
+		}
+		
+		jsonRetorno = gson.toJson(grupos);
 		
 		return jsonRetorno;
 		
 	}
 	
+	/*
 	@POST
+	@Path("/buscarGrupoPorIntegrante/")
+	public String buscarGrupoPorIntegrante(String json) {
+		
+		String jsonRetorno = "";
+		
+		Gson gson = new Gson();
+		Usuario integrante = gson.fromJson(json, Usuario.class);
+
+		IntegranteGrupoDAO integranteGrupoDAO = new IntegranteGrupoDAO();
+		
+		List<IntegranteGrupo> integranteGrupos = integranteGrupoDAO.listarPorIntegrante(integrante);
+		
+		jsonRetorno = gson.toJson(integranteGrupos);
+		
+		return jsonRetorno;
+		
+	}*/
+	
+	@PUT
 	@Path("/cadastraIntegranteGrupo/")
 	public String cadastrarUsuarioGrupo(String json) {
 		
@@ -91,7 +118,7 @@ public class IntegranteGrupoService {
 		integranteGrupo.setIntegrante(gson.fromJson(usuarioService.consultarUsuario(integranteGrupoPojo.getUsuario()), Usuario.class));
 
 		
-		integranteGrupoDAO.salvar(integranteGrupo);
+		integranteGrupoDAO.merge(integranteGrupo);
 		
 		jsonRetorno = gson.toJson(integranteGrupo);
 		
@@ -111,14 +138,15 @@ public class IntegranteGrupoService {
 		UsuarioService usuarioService = new UsuarioService();
 		
 		integranteGrupo.setAtivo(true);
-		integranteGrupo.setGrupo(gson.fromJson(grupoService.consultargrupo(integranteGrupoPojo.getGrupo()),Grupo.class));
-		integranteGrupo.setIntegrante(gson.fromJson(usuarioService.consultarUsuario(integranteGrupoPojo.getUsuario()), Usuario.class));
+		integranteGrupo.setGrupo(gson.fromJson(grupoService.consultarGrupoPorCodigo(integranteGrupoPojo.getGrupo()),Grupo.class));
+		integranteGrupo.setIntegrante(gson.fromJson(usuarioService.consultaPorCodigoUsuario(integranteGrupoPojo.getUsuario()), Usuario.class));
 		
 		boolean link = integranteGrupoDAO.consultarCadastroIntegranteGrupo(integranteGrupo);
 		
 		integranteGrupoPojo.setAtivo(link);
 
 		jsonRetorno = gson.toJson(integranteGrupoPojo);
+		System.out.println(jsonRetorno);
 
 		return jsonRetorno;
 	}

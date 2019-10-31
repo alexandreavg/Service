@@ -3,7 +3,9 @@ package br.com.servico.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
@@ -68,6 +70,19 @@ public class GrupoDAO extends GenericDAO<Grupo> {
 		} finally {
 			sessao.close();
 		}
+		
+	}
+	
+	public void alterarGrupo(Grupo grupo) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		Transaction tx = sessao.beginTransaction();
+		Query query = sessao.createQuery("update from grupo set nomegrupo = :nomegrupo, nomeMateria = :materia where codigo = :codigo");
+		query.setParameter("nomegrupo", grupo.getNomeGrupo());
+		query.setParameter("materia", grupo.getNomeMateria());
+		query.setParameter("codigo", grupo.getCodigo());
+		
+		int resultQuery = query.executeUpdate();
+		tx.commit();
 		
 	}
 	

@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import br.com.servico.dao.UsuarioDAO;
 import br.com.servico.domain.Login;
 import br.com.servico.domain.Usuario;
+import br.com.servico.javaMail.JavaMail;
 
 //http://127.0.0.1:8080/Servico/rest/usuario/listarUsuarios
 @Path("usuario")
@@ -44,7 +45,7 @@ public class UsuarioService {
 
 		Gson gson = new Gson();
 		Usuario usuario = gson.fromJson(json, Usuario.class);
-		//usuario.setAtivo(true);
+		usuario.setAtivo(true);
 
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 
@@ -158,6 +159,31 @@ public class UsuarioService {
 		Usuario usuario = gson.fromJson(json, Usuario.class);
 		dao.alterarSenha(usuario);
 		jsonRetorno = gson.toJson(usuario);
+		return jsonRetorno;
+	}
+	
+	@GET
+	@Path("/buscaPorCodigoDeUsuario")
+	public String consultaPorCodigoUsuario(Long codigo) {
+		String jsonRetorno;
+		Gson gson = new Gson();
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		Usuario usuario = usuarioDAO.buscar(codigo);
+		jsonRetorno = gson.toJson(usuario);
+		return jsonRetorno;
+	}
+	
+	@POST
+	@Path("/recuperarSenha")
+	public String recuperarSenhaUsuario(String json) {
+		String jsonRetorno;
+		Gson gson = new Gson();
+		Login login = gson.fromJson(json, Login.class);
+		JavaMail mail = new JavaMail();
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		Login rec = usuarioDAO.recuperarSenha(login);
+		mail.enviarEmail(rec);
+		jsonRetorno = gson.toJson(rec);
 		return jsonRetorno;
 	}
 

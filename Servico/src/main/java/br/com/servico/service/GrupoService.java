@@ -119,5 +119,17 @@ public class GrupoService {
 		return jsonRetorno = gson.toJson(result);
 		
 	}
+	
+	public String consultarGrupoPorCodigo(Long codigo) {
+		String jsonRetorno = "";
+
+		Gson gson = new Gson();
+
+		GrupoDAO grupoDAO = new GrupoDAO();
+		Grupo result = grupoDAO.buscar(codigo);
+		  
+		return jsonRetorno = gson.toJson(result);
+		
+	}
 
 }

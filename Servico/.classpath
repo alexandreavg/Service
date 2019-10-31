@@ -13,9 +13,9 @@
 	</classpathentry>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
+			<attribute name="test" value="true"/>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
@@ -29,5 +29,12 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Desenvolvimento/lib - JavaMail/lib/activation.jar"/>
+	<classpathentry kind="lib" path="C:/Desenvolvimento/lib - JavaMail/lib/dsn.jar"/>
+	<classpathentry kind="lib" path="C:/Desenvolvimento/lib - JavaMail/lib/gimap.jar"/>
+	<classpathentry kind="lib" path="C:/Desenvolvimento/lib - JavaMail/lib/imap.jar"/>
+	<classpathentry kind="lib" path="C:/Desenvolvimento/lib - JavaMail/lib/mailapi.jar"/>
+	<classpathentry kind="lib" path="C:/Desenvolvimento/lib - JavaMail/lib/pop3.jar"/>
+	<classpathentry kind="lib" path="C:/Desenvolvimento/lib - JavaMail/lib/smtp.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
